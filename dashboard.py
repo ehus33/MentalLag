@@ -24,8 +24,15 @@ class ReactionDashboard:
             snark = "Did you fall asleep? Your grandma could've out-clicked you blindfolded."
 
         plt.figure(figsize=(9, 5))
-        plt.plot(today_scores, marker='o', label="Your Reaction Time")
+        x = np.arange(len(today_scores))
+        y = np.array(today_scores)
+        plt.plot(x, y, marker='o', label="Your Reaction Time")
         plt.axhline(y=avg, color='r', linestyle='--', label=f'Avg: {avg:.3f}s')
+
+        z = np.polyfit(x, y, 1)
+        trend = np.poly1d(z)
+        plt.plot(x, trend(x), color='orange', linestyle=':', label='Trendline')
+
         plt.title("Reaction Time Today")
         plt.xlabel("Trial")
         plt.ylabel("Seconds")
